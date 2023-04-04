@@ -9,7 +9,7 @@ on:
 
 jobs:
   duplicate_pr:
-    name: PR comment
+    name: PR comments
     # if: ${{ github.event.issue.pull_request && github.event.comment.body == '@dimagotchi duplicate this' }}
     runs-on: ubuntu-latest
     steps:
