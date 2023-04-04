@@ -3,12 +3,14 @@ name: Duplicate PR
 on:
   issue_comment:
     types: [created, edited]
+  pull_request_review_comment:
+    types: created
   
 
 jobs:
   duplicate_pr:
     name: PR comment
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '@dimagotchi duplicate this' }}
+    # if: ${{ github.event.issue.pull_request && github.event.comment.body == '@dimagotchi duplicate this' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,15 +23,14 @@ jobs:
         run: pip install sh
         # working-directory: ./commcare-hq
         # run: pip install -r requirements/dev-requirements.txt
-      - name: Varibles
+      - name: Varibles Issue Comment
         run: |
           echo GITHUB_REF_NAME is ${{ github.ref_name }}
           echo GITHUB_BASE_REF is ${{ github.base_ref	}}
           echo event.issue ${{ github.event.issue}}
-          echo event.issue.pull_request ${{ github.event.issue.pull_request.merged_at}}
-          for key in ${!${{ github.event.issue.pull_request}}[@]}; do
-            echo ${key} ${${{ github.event.issue.pull_request}}[${key}]}
-          done
+          echo event.issue.pull_request base.ref ${{ github.event.issue.pull_request.base.ref}}
+          echo event.issue.pull_request head.ref ${{ github.event.issue.pull_request.head.ref}}
+
       - name: Run duplicate_pr script
         # run: python scripts/duplicate_pr.py ${GITHUB_REF_NAME} ${GITHUB_BASE_REF}
         run: python scripts/duplicate_pr.py ${{ github.ref_name }} ${{ github.base_ref }}
