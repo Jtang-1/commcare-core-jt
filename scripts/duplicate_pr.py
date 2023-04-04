@@ -52,7 +52,6 @@ def git_fetch_branch(branch_name:str):
 def get_new_commits(base_branch: str, curr_branch:str):
     git = get_git()
     base_commit = merge_base_commit(base_branch, curr_branch)
-    print("got the base_commit")
     recent_commit = latest_commit(curr_branch)
 
     commits_range = "{}..{}".format(base_commit, recent_commit)
@@ -75,7 +74,9 @@ def git_push_pr(branch:str):
 
 def merge_base_commit(branch1: str, branch2:str):
     git = get_git()
-    return str(git("merge-base", branch1, branch2).replace("\n", ""))
+    base_commit = git("merge-base", branch1, branch2)
+    print("base commit is", base_commit)
+    return str(base_commit.replace("\n", ""))
 
 
 def latest_commit(branch:str):
@@ -112,7 +113,6 @@ def main():
 
     print("Fetching {}".format(args.orig_source_branch))
     git_fetch_branch(args.orig_source_branch)
-    git_fetch_branch(args.orig_target_branch)
 
     print("Getting new commits from {}".format(args.orig_source_branch))
     new_commits = get_new_commits(args.orig_target_branch, args.orig_source_branch)
