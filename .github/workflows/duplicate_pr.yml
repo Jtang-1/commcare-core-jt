@@ -27,7 +27,7 @@ jobs:
           echo GITHUB_BASE_REF is ${{ github.base_ref	}}
       - name: Run duplicate_pr script
         # run: python scripts/duplicate_pr.py ${GITHUB_REF_NAME} ${GITHUB_BASE_REF}
-        run: python scripts/duplicate_pr.py ${{ github.ref_name }} ${{ github.base_ref	}
+        run: python scripts/duplicate_pr.py ${{ github.ref_name }} ${{ github.base_ref }}
 
   # pr_commented:
   #   # This job only runs for pull request comments
