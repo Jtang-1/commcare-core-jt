@@ -47,9 +47,7 @@ def git_fetch_branch(branch_name:str):
     # fetch remote branch without switching branches
     input = "{0}:{0}".format(branch_name)
     try:
-        print("input", input)
         git.fetch("origin", input)
-        print("fetched")
     except sh.ErrorReturnCode_1 as e:
         print(red(e.stderr.decode()))
         exit(1)
@@ -59,7 +57,6 @@ def get_new_commits(base_branch: str, curr_branch:str):
     git = get_git()
     print("before merge_base_commit")
     if base_branch != BranchName.MASTER.value:
-        print("in fetch for get_new_commits, orig_branchname is", base_branch)
         git_fetch_branch(base_branch)
     base_commit = merge_base_commit(base_branch, curr_branch)
     recent_commit = latest_commit(curr_branch)
