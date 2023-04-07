@@ -41,14 +41,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           body_text: |
-            'This is test for multiline ${{github.event.issue.pull_request.html_url}}
-            second line'
+            "This is test for multiline ${{github.event.issue.pull_request.html_url}}
+            second line"
       - name: Create Pull Request Base Formplayer
         if: ${{ steps.comment-branch.outputs.base_ref == 'master' }}
         run: gh pr create --title "AUTO PR" --body $body_text --base formplayer 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           body_text: |
-            'This is test for multiline ${{github.event.issue.pull_request.html_url}}
-            second line'
+            "This is test for multiline ${{github.event.issue.pull_request.html_url}}
+            second line"
           
