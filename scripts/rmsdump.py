@@ -162,6 +162,7 @@ def get_record (rmses, name, id):
 
 def format_bytes (data, indent=4):
   strs = [' ' * indent]
+  print("test commit")
   for (i, c) in enumerate(data):
     hx = '%02x' % ord(c)
     if i > 0:
