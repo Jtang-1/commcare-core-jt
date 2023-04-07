@@ -13,3 +13,4 @@ for (_, v) in pairs:
   
 for (l, v) in pairs:
   print """<text id="ch-%s"><value>%s</value></text>""" % (v, l)
+  print("new")
