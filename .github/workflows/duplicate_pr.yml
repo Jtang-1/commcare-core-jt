@@ -37,15 +37,18 @@ jobs:
         run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }}
       - name: Create Pull Request Base Master
         if: ${{ steps.comment-branch.outputs.base_ref == 'formplayer' }}
-        run: gh pr create --title "AUTO PR" --body ${{github.event.issue.pull_request.html_url}} --base master 
+        run: gh pr create --title "AUTO PR" --body $body_text --base master 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          body_text: |
+            This is test for multiline ${{github.event.issue.pull_request.html_url}}
+            second line
       - name: Create Pull Request Base Formplayer
         if: ${{ steps.comment-branch.outputs.base_ref == 'master' }}
-        run: gh pr create --title "AUTO PR" --body ${{github.event.issue.pull_request.html_url}} --base formplayer 
+        run: gh pr create --title "AUTO PR" --body $body_text --base formplayer 
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           body_text: |
-            This is test for multiline 
+            This is test for multiline ${{github.event.issue.pull_request.html_url}}
             second line
           
