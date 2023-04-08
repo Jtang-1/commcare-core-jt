@@ -23,3 +23,5 @@ if __name__ == "__main__":
   log_digest = [read_log_entry(le) for le in log_entries]
   for la in sorted(log_digest, key=lambda la: la[0]):
     print_log(la)
+
+print("another commit")
