@@ -41,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           body_text: |
-            Reference PR${{github.event.issue.pull_request.html_url}}
+            Reference PR ${{github.event.issue.pull_request.html_url}}
 
             GitHub Actions automatically ran duplicate_pr.py
             
@@ -54,7 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           body_text: |
-            Reference PR${{github.event.issue.pull_request.html_url}}
+            Reference PR ${{github.event.issue.pull_request.html_url}}
 
             GitHub Actions automatically ran duplicate_pr.py
             
