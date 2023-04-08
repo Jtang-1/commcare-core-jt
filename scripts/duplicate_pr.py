@@ -113,8 +113,7 @@ def main():
     parser.add_argument('orig_source_branch', type=str, help="Branch name of PR to be duplicated")
     parser.add_argument('orig_target_branch', type=str, help="Name of branch the original PR merged into",
                             choices = [key.value for key in BranchName])
-    parser.add_argument('initial_sha', type=str, help="SHA of first commit in PR to be duplicated",
-                        required = False)
+    parser.add_argument('-i','--initial_sha', type=str, help="SHA of first commit in PR to be duplicated")
     args = parser.parse_args()
 
     new_source_branch = "copy_of_" + args.orig_source_branch
