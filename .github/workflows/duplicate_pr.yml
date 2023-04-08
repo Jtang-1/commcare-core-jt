@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           title_text: Duplicate of ${{ steps.comment-branch.outputs.head_ref }}
           body_text: |
-            Reference PR ${{github.event.issue.pull_request.html_url}}
+            Copy of PR ${{github.event.issue.pull_request.html_url}} and used GitHub CLI to open this pull request.
 
             GitHub Actions automatically ran duplicate_pr.py
             
@@ -57,9 +57,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           title_text: Duplicate of ${{ steps.comment-branch.outputs.head_ref }}
           body_text: |
-            Reference PR ${{github.event.issue.pull_request.html_url}}
+            Copy of PR ${{github.event.issue.pull_request.html_url}}
 
-            GitHub Actions automatically ran duplicate_pr.py
+            GitHub Actions automatically ran duplicate_pr.py and used GitHub CLI to open this pull request.
             
             Please **close and reopen** this pull request to have tests run.<sup>†</sup>
 
