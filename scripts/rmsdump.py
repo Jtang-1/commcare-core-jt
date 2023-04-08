@@ -228,3 +228,5 @@ if __name__ == "__main__":
   (rmses, num_rms, err) = extract_rms(stream)
 
   print_contents(len(data), rmses, num_rms, err)
+
+  print("NEW COMMIT")
