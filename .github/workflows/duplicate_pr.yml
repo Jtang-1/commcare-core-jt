@@ -1,5 +1,6 @@
 name: Duplicate PR
 
+#Duplication workflow must be run before PR is merged and branch is deleted
 on:
   issue_comment:
     types: [created, edited]
@@ -7,7 +8,7 @@ on:
 jobs:
   duplicate_pr:
     name: Duplicate PR
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '@dimagotchi duplicate this' }}
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body,'@dimagotchi duplicate this PR') }}
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/pull-request-comment-branch
