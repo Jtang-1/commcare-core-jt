@@ -11,6 +11,15 @@ jobs:
     if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body,'@dimagotchi duplicate this PR') }}
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR Intial Commit SHA
+        if: ${{ github.event.ssue.pull_request.merged_at }}
+        id: initial-sha
+        uses: actions/github-script@0.9.0
+        with:
+          script: |
+            const sha = cgithub.event.comment.body.split('-').pop()
+            core.setOutput('sha', sha)
+      - run: echo INITIAL SHA IS "${{ steps.initial-sha.outputs.sha }}"
       # https://github.com/marketplace/actions/pull-request-comment-branch
       - name: Pull Request Comment Branch
         uses: xt0rted/pull-request-comment-branch@v2.0.0
