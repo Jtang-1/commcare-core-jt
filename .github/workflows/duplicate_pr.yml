@@ -38,7 +38,9 @@ jobs:
           git config --global user.email github-actions@github.com
           git config --global user.name github-actions
       - name: Run duplicate_pr.py script
-        run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }}
+        run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }} "${initial_sha}"
+        env:
+          intial_sha: ${{ steps.initial-sha.outputs.sha }}
       - name: Create Pull Request Base Master
         if: ${{ steps.comment-branch.outputs.base_ref == 'formplayer' }}
         run: gh pr create --title "${title_text}" --body "${body_text}" --base master 
