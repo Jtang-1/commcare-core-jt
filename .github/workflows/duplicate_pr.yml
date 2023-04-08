@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get PR Intial Commit SHA
-        if: ${{ github.event.ssue.pull_request.merged_at }}
+        if: ${{ github.event.issue.pull_request.merged_at }}
         id: initial-sha
         uses: actions/github-script@0.9.0
         with:
