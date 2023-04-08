@@ -115,6 +115,7 @@ def main():
                             choices = [key.value for key in BranchName])
     parser.add_argument('-i','--initial_sha', type=str, help="SHA of first commit in PR to be duplicated")
     args = parser.parse_args()
+    print("args are", args)
 
     new_source_branch = "copy_of_" + args.orig_source_branch
     new_target_branch = get_target_branch(args.orig_target_branch)

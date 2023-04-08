@@ -19,7 +19,6 @@ jobs:
           script: |
             const sha = context.payload.comment.body.split(" ").pop()
             core.setOutput('sha', sha)
-      - run: echo INITIAL SHA IS "${{ steps.initial-sha.outputs.sha }}"
       # https://github.com/marketplace/actions/pull-request-comment-branch
       - name: Pull Request Comment Branch
         uses: xt0rted/pull-request-comment-branch@v2.0.0
@@ -38,7 +37,9 @@ jobs:
           git config --global user.email github-actions@github.com
           git config --global user.name github-actions
       - name: Run duplicate_pr.py script
-        run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }} --initial_sha "${initial_sha}"
+        run: |
+          echo INITIAL SHA IS "${{ steps.initial-sha.outputs.sha }}"
+          python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }} --initial_sha ${initial_sha}
         env:
           intial_sha: ${{ steps.initial-sha.outputs.sha }}
       - name: Create Pull Request Base Master
