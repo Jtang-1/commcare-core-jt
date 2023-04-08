@@ -26,11 +26,8 @@ def get_target_branch(orig_target_branch:str):
 def git_create_branch(orig_branch_name:str, new_branch_name: str):
     git = get_git()
     try:
-        print("orig_branch_name", orig_branch_name)
         if orig_branch_name != BranchName.MASTER.value:
-            print("in fetch for create branceh, orig_branchname is", orig_branch_name)
             git_fetch_branch(orig_branch_name)
-            print("after fethch in create branch")
         git.checkout(orig_branch_name)
     except sh.ErrorReturnCode_1 as e:
         print(red(e.stderr.decode()))
@@ -47,9 +44,7 @@ def git_fetch_branch(branch_name:str):
     # fetch remote branch without switching branches
     input = "{0}:{0}".format(branch_name)
     try:
-        print("input", input)
         git.fetch("origin", input)
-        print("fetched")
     except sh.ErrorReturnCode_1 as e:
         print(red(e.stderr.decode()))
         exit(1)
@@ -57,9 +52,7 @@ def git_fetch_branch(branch_name:str):
 
 def get_new_commits(base_branch: str, curr_branch:str):
     git = get_git()
-    print("before merge_base_commit")
     if base_branch != BranchName.MASTER.value:
-        print("in fetch for get_new_commits, orig_branchname is", base_branch)
         git_fetch_branch(base_branch)
     base_commit = merge_base_commit(base_branch, curr_branch)
     recent_commit = latest_commit(curr_branch)
@@ -78,7 +71,6 @@ def cherry_pick_new_commits(commits:list[str], branch:str):
             git("cherry-pick", commits)
         except sh.ErrorReturnCode_1 as e:
             if empty_commit_message in e.stderr.decode():
-                print("IN IF")
                 git("cherry-pick", "--skip")
 
 
@@ -90,10 +82,8 @@ def git_push_pr(branch:str):
 
 def merge_base_commit(branch1: str, branch2:str):
     git = get_git()
-    print("in merge_base, before git call.")
     base_commit = git("merge-base", branch1, branch2)
     # base_commit = "793bad7e2b3448da5ed6f6f3900e04568a91e6ea"
-    print("base commit is", base_commit)
     return str(base_commit.replace("\n", ""))
 
 
