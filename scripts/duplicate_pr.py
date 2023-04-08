@@ -56,7 +56,7 @@ def get_new_commits(base_branch: str, curr_branch:str, base_commit:str = None):
         git_fetch_branch(base_branch)
     print("base commit is", base_commit)
     if base_commit:
-        base_commit = git.show("{}^1".format(base_commit))
+        base_commit = git.show("{}^1".format(base_commit)).split()[1]
         print("in if, new base commit is", base_commit)
         print("in if, new base commit split is", base_commit.split())
     else:
