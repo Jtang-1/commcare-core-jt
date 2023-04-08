@@ -4,11 +4,9 @@ on:
   issue_comment:
     types: [created, edited]
   
-permissions: write-all
-
 jobs:
   duplicate_pr:
-    name: PR comment
+    name: Duplicate PR
     if: ${{ github.event.issue.pull_request && github.event.comment.body == '@dimagotchi duplicate this' }}
     runs-on: ubuntu-latest
     steps:
@@ -23,18 +21,13 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - name: Install dev requirements
+      - name: Install Requirements
         run: pip install sh
-      - name: sender
-        run: |
-          echo sender is ${{ github.event.sender }}
-          echo triggering_actor is ${{ github.triggering_actor }}
-          echo html_url is ${{github.event.issue.pull_request.html_url}}
       - name: Config Git
         run: |
           git config --global user.email github-actions@github.com
           git config --global user.name github-actions
-      - name: Run duplicate_pr script
+      - name: Run duplicate_pr.py script
         run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }}
       - name: Create Pull Request Base Master
         if: ${{ steps.comment-branch.outputs.base_ref == 'formplayer' }}
