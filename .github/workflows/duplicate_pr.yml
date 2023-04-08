@@ -43,7 +43,7 @@ jobs:
           python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }} --initial_sha ${initial_sha}
         env:
           initial_sha: ${{ steps.initial-sha.outputs.sha }}
-     - name: Run duplicate_pr.py script with PR not merged
+      - name: Run duplicate_pr.py script with PR not merged
         if: ${{ !github.event.issue.pull_request.merged_at }}
         run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }}
       - name: Create Pull Request Base Master
