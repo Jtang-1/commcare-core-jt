@@ -39,7 +39,7 @@ jobs:
       - name: Run duplicate_pr.py script
         run: |
           echo INITIAL SHA IS "${{ steps.initial-sha.outputs.sha }}"
-          python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }} --initial_sha ${initial_sha}
+          python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }} --initial_sha ${{ steps.initial-sha.outputs.sha }}
         env:
           intial_sha: ${{ steps.initial-sha.outputs.sha }}
       - name: Create Pull Request Base Master
