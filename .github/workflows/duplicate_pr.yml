@@ -17,7 +17,7 @@ jobs:
         uses: actions/github-script@0.9.0
         with:
           script: |
-            const sha = context.payload.comment.body.split('-').pop()
+            const sha = context.payload.comment.body.split(" ").pop()
             core.setOutput('sha', sha)
       - run: echo INITIAL SHA IS "${{ steps.initial-sha.outputs.sha }}"
       # https://github.com/marketplace/actions/pull-request-comment-branch
