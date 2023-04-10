@@ -49,7 +49,6 @@ jobs:
         run: python scripts/duplicate_pr.py ${{ steps.comment-branch.outputs.head_ref }} ${{ steps.comment-branch.outputs.base_ref }}
       - name: Determine Base Branch
         id: base-branch
-        if: ${{ steps.comment-branch.outputs.base_ref == 'formplayer' }}
         run: |
           if [[ ${{ steps.comment-branch.outputs.base_ref}} = "formplayer" ]]
           then echo "NAME=master" >> $GITHUB_OUTPUT
@@ -57,7 +56,6 @@ jobs:
           then echo "NAME=formplayer" >> $GITHUB_OUTPUT
           fi
       - name: Create Pull Request
-        if: ${{ steps.comment-branch.outputs.base_ref == 'master' }}
         run: gh pr create --title "${title_text}" --body "${body_text}" --base "${base_branch_name}" 
         env:
           base_branch_name: ${{ steps.base-branch.outputs.NAME }}
