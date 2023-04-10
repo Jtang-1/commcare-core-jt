@@ -54,11 +54,8 @@ def get_new_commits(base_branch: str, curr_branch:str, base_commit:str = None):
     git = get_git()
     if base_branch != BranchName.MASTER.value:
         git_fetch_branch(base_branch)
-    print("base commit is", base_commit)
     if base_commit:
         base_commit = git.show("{}^1".format(base_commit)).split()[1]
-        print("in if, new base commit is", base_commit)
-        print("in if, new base commit split is", base_commit.split())
     else:
         base_commit = merge_base_commit(base_branch, curr_branch)
     recent_commit = latest_commit(curr_branch)
@@ -89,7 +86,6 @@ def git_push_pr(branch:str):
 def merge_base_commit(branch1: str, branch2:str):
     git = get_git()
     base_commit = git("merge-base", branch1, branch2)
-    # base_commit = "793bad7e2b3448da5ed6f6f3900e04568a91e6ea"
     return str(base_commit.replace("\n", ""))
 
 
@@ -119,7 +115,6 @@ def main():
                             choices = [key.value for key in BranchName])
     parser.add_argument('-i','--initial_sha', type=str, help="SHA of first commit in PR to be duplicated")
     args = parser.parse_args()
-    print("args are", args)
 
     new_source_branch = "copy_of_" + args.orig_source_branch
     new_target_branch = get_target_branch(args.orig_target_branch)
