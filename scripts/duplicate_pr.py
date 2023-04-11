@@ -82,7 +82,7 @@ def git_push_pr(branch:str):
     try:
         output = git.push("origin", branch, _err_to_out=True)
     except sh.ErrorReturnCode_1 as e:
-        print("Failed to push. {} already exists remotely. Try deleting remote branch and run action again".format(branch))
+        print(red("Failed to push. {} already exists remotely. Try deleting remote branch and run action again".format(branch)))
     print(output)
 
 
