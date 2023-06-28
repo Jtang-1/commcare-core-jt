@@ -75,7 +75,7 @@ def cherry_pick_new_commits(commits:list[str], branch:str):
         except sh.ErrorReturnCode_1 as e:
             if empty_commit_message in e.stderr.decode():
                 git("cherry-pick", "--skip")
-                print("test")
+                print("test2")
 
 
 def git_push_pr(branch:str):
